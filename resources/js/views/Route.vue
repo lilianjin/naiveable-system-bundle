@@ -130,11 +130,12 @@ export default {
 				return this.routes;
 			}
 
-			return this.routes.filter(route => {
-				return ! route.action.length
-					&& (! route.as.length || route.as.indexOf('admin') !== 0)
-					&& ! route.middleware.includes('admin');
-			});
+			return this.routes
+			// return this.routes.filter(route => {
+			// 	return ! route.action.length
+			// 		&& (! route.as.length || route.as.indexOf('admin') !== 0)
+			// 		&& ! route.middleware.includes('admin');
+			// });
 		},
 
 		searchRegex() {

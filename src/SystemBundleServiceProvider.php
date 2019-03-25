@@ -3,10 +3,7 @@
 namespace Naiveable\SystemBundle;
 
 use Naiveable\Routing\Facades\Route;
-use Naiveable\Support\Contracts\ConfigableProviderInterface;
-use Naiveable\Support\Contracts\MigrateableProviderInterface;
 use Naiveable\Support\Contracts\RouteableProviderInterface;
-use Naiveable\Support\Contracts\TranslatableProviderInterface;
 use Naiveable\Support\ServiceProvider;
 
 /**
@@ -25,10 +22,7 @@ use Naiveable\Support\ServiceProvider;
  *
  * @copyright  Copyright (c) 2017-2019 Bill Li, Ofcold Institute of Technology. All rights reserved.
  */
-class SystemBundleServiceProvider extends ServiceProvider implements RouteableProviderInterface,
-																TranslatableProviderInterface,
-																MigrateableProviderInterface,
-																ConfigableProviderInterface
+class SystemBundleServiceProvider extends ServiceProvider implements RouteableProviderInterface
 {
 	/**
 	 * This namespace is applied to your controller routes.
@@ -47,6 +41,15 @@ class SystemBundleServiceProvider extends ServiceProvider implements RouteablePr
 	public function register(): void
 	{
 		$this->registerBundle('naiveable.bundle.system', __DIR__);
+
+		// Register configuration namespace any bundle services.
+		$this->addNamespaceForConfig($this->bundle->getNamespace(), $this->bundle->getPath('resources/config'));
+
+		// Register view namespace any bundle services.
+		$this->addNamespaceForView($this->bundle->getNamespace(), $this->bundle->getPath('resources/views'));
+
+		// Register a database migrate files of the service provider.
+		$this->loadMigrationsFrom($this->bundle->getPath('database/migrations'));
 	}
 
 	/**
@@ -56,6 +59,7 @@ class SystemBundleServiceProvider extends ServiceProvider implements RouteablePr
 	 */
 	public function boot(): void
 	{
+		$this->translatorLoader();
 	}
 
 	/**
@@ -76,49 +80,16 @@ class SystemBundleServiceProvider extends ServiceProvider implements RouteablePr
 	}
 
 	/**
-	 * Register configuration namespace any bundle services.
-	 *
-	 * @return void
-	 */
-	public function configRegister(): void
-	{
-		// Load package configuration.
-		$this->addNamespaceForConfig($this->bundle->getNamespace(), $this->bundle->getPath('resources/config'));
-	}
-
-	/**
-	 * Register view namespace any bundle services.
-	 *
-	 * @return void
-	 */
-	public function viewRegister(): void
-	{
-		// Add the view namespaces.
-		$this->addNamespaceForView($this->bundle->getNamespace(), $this->bundle->getPath('resources/views'));
-	}
-
-	/**
 	 * Register translation namespace any bundle services.
 	 *
 	 * @return void
 	 */
-	public function translatorRegister(): void
+	public function translatorLoader(): void
 	{
 		$path = $this->bundle->getPath('resources/lang');
 
 		// Load package translator.
 		$this->loadTranslationsFrom($path, $this->bundle->getNamespace());
 		$this->loadJsonTranslationsFrom($path);
-	}
-
-	/**
-	 * Register a database migrate files of the service provider.
-	 *
-	 * @return void
-	 */
-	public function migrateRegister(): void
-	{
-		// Register a database migration path.
-		$this->loadMigrationsFrom($this->bundle->getPath('database/migrations'));
 	}
 }
