@@ -2,6 +2,7 @@
 
 namespace Naiveable\SystemBundle;
 
+use Naiveable\Foundation\Domain;
 use Naiveable\Routing\Facades\Route;
 use Naiveable\Support\Contracts\RouteableProviderInterface;
 use Naiveable\Support\ServiceProvider;
@@ -70,7 +71,7 @@ class SystemBundleServiceProvider extends ServiceProvider implements RouteablePr
 	public function map()
 	{
 		Route::namespace($this->getNamespaceForApp('Admin'))
-			->domain(config('app.domain.api', null))
+			->domain(Domain::route('admin.api'))
 			->middleware('auth:api')
 			->as('naiveable.bundle.system::api.')
 			->prefix('admin')
