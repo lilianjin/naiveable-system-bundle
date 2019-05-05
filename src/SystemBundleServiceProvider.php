@@ -2,7 +2,7 @@
 
 namespace Naiveable\SystemBundle;
 
-use Naiveable\Foundation\Domain;
+use Naiveable\Foundation\Http\Domain;
 use Naiveable\Routing\Facades\Route;
 use Naiveable\Support\Contracts\RouteableProviderInterface;
 use Naiveable\Support\ServiceProvider;
