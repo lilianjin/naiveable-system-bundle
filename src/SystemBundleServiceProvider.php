@@ -2,8 +2,9 @@
 
 namespace Naiveable\SystemBundle;
 
+use Illuminate\Support\Facades\Route;
 use Naiveable\Foundation\Http\Domain;
-use Naiveable\Routing\Facades\Route;
+use Naiveable\Support\Contracts\BundleableProviderInterface;
 use Naiveable\Support\Contracts\RouteableProviderInterface;
 use Naiveable\Support\ServiceProvider;
 
@@ -23,7 +24,8 @@ use Naiveable\Support\ServiceProvider;
  *
  * @copyright  Copyright (c) 2017-2019 Bill Li, Ofcold Institute of Technology. All rights reserved.
  */
-class SystemBundleServiceProvider extends ServiceProvider implements RouteableProviderInterface
+class SystemBundleServiceProvider extends ServiceProvider implements RouteableProviderInterface,
+	BundleableProviderInterface
 {
 	/**
 	 * This namespace is applied to your controller routes.
@@ -41,16 +43,6 @@ class SystemBundleServiceProvider extends ServiceProvider implements RouteablePr
 	 */
 	public function register(): void
 	{
-		$this->registerBundle('naiveable.bundle.system', __DIR__);
-
-		// Register configuration namespace any bundle services.
-		$this->addNamespaceForConfig($this->bundle->getNamespace(), $this->bundle->getPath('resources/config'));
-
-		// Register view namespace any bundle services.
-		$this->addNamespaceForView($this->bundle->getNamespace(), $this->bundle->getPath('resources/views'));
-
-		// Register a database migrate files of the service provider.
-		$this->loadMigrationsFrom($this->bundle->getPath('database/migrations'));
 	}
 
 	/**
@@ -60,7 +52,6 @@ class SystemBundleServiceProvider extends ServiceProvider implements RouteablePr
 	 */
 	public function boot(): void
 	{
-		$this->translatorLoader();
 	}
 
 	/**
@@ -80,17 +71,4 @@ class SystemBundleServiceProvider extends ServiceProvider implements RouteablePr
 			});
 	}
 
-	/**
-	 * Register translation namespace any bundle services.
-	 *
-	 * @return void
-	 */
-	public function translatorLoader(): void
-	{
-		$path = $this->bundle->getPath('resources/lang');
-
-		// Load package translator.
-		$this->loadTranslationsFrom($path, $this->bundle->getNamespace());
-		$this->loadJsonTranslationsFrom($path);
-	}
 }

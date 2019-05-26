@@ -23,13 +23,6 @@ use Naiveable\Foundation\Bundle\Bundle;
 class SystemBundle extends Bundle
 {
 	/**
-	 * The navigation display flag.
-	 *
-	 * @var  bool
-	 */
-	protected $navigation = true;
-
-	/**
 	 * The addon icon.
 	 *
 	 * @var  string
@@ -37,24 +30,57 @@ class SystemBundle extends Bundle
 	protected $icon = 'puzzle-piece';
 
 	/**
-	 * The view's component.
+	 * The bundle type.
 	 *
 	 * @var string
 	 */
-	public $component = 'settings';
+	protected $type = 'bundle';
 
 	/**
-	 * The bundle's sections.
+	 * The bundle slug.
 	 *
-	 * @var string|array
+	 * @var string
 	 */
-	protected $sections = [
-		[
-			'slug'			=> 'routes',
-			'uriKey'		=> 'routes',
-			'component'		=> 'ofcold.bundle.system::routes',
-			'singularLabel'	=> 'Routes'
-		],
-	];
+	protected $slug = 'system';
+
+	/**
+	 * The bundle vendor.
+	 *
+	 * @var string
+	 */
+	protected $vendor = 'naiveable';
+
+	/**
+	 * The namespace.
+	 *
+	 * @var string
+	 */
+	protected $namespace = 'naiveable.bundle.system';
+
+	/**
+	 * Register the given resources.
+	 *
+	 * @return static
+	 */
+	public static function resources()
+	{
+		return [
+
+		];
+	}
+
+	/**
+	 * Get the bundle path.
+	 *
+	 * @return string|null
+	 */
+	public function getPath(?string $path = null)
+	{
+		if (! $this->path) {
+			$this->path = realpath(__DIR__ . '/../');
+		}
+
+		return parent::getPath($path);
+	}
 
 }
