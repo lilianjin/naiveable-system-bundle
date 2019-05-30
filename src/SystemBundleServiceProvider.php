@@ -65,9 +65,8 @@ class SystemBundleServiceProvider extends ServiceProvider implements RouteablePr
 			->domain(Domain::route('admin.api'))
 			->middleware('auth:api')
 			->as('naiveable.bundle.system::api.')
-			->prefix('admin')
 			->group(function () {
-				Route::get('/system/routes', 'RoutesController@preview');
+				Route::get('/system-routes', 'RoutesController@preview');
 			});
 	}
 

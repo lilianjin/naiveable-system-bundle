@@ -183,10 +183,9 @@ module.exports = __webpack_require__(2);
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 Ofcold.booting(function (Vue, router, store) {
 	router.addRoutes([{
-		path: '/system/routes',
+		path: '/system-routes',
 		name: 'ofcold.bundle.system::routes',
 		component: __webpack_require__(3)
 	}]);
@@ -707,7 +706,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		getRoutes: function getRoutes() {
 			var _this = this;
 
-			Ofcold.request().get('/admin/system/routes').then(function (response) {
+			Ofcold.request().get('/system-routes').then(function (response) {
 				_this.routes = response.data;
 			});
 		},

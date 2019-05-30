@@ -69,7 +69,7 @@ export default {
 	methods: {
 
 		getRoutes() {
-			Ofcold.request().get('/admin/system/routes').then(response => {
+			Ofcold.request().get('/system-routes').then(response => {
 				this.routes = response.data;
 			});
 		},

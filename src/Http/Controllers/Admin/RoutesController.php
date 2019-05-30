@@ -2,8 +2,8 @@
 
 namespace Naiveable\SystemBundle\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Route;
 use Naiveable\Foundation\Http\Controllers\AdminController;
-use Naiveable\Routing\Facades\Route;
 use Naiveable\Stringy\Str;
 
 /**

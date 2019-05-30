@@ -65,7 +65,19 @@ class SystemBundle extends Bundle
 	public static function resources()
 	{
 		return [
+			// \Naiveable\Actions\ActionResource::class
+		];
+	}
 
+	/**
+	 * Get the navigations.
+	 *
+	 * @return array
+	 */
+	public static function navigations()
+	{
+		return [
+			Routing\RouteNavigatorAble::class,
 		];
 	}
 
